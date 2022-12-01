@@ -10,3 +10,9 @@
 
 //ADDITIONAL
 #include <argparse.h>
+
+
+static const char *const usages[] = {
+    "install <filename>",
+    NULL
+};

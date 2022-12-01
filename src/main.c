@@ -5,11 +5,6 @@ struct cmd_struct{
     int (*fn)(int, const char**);
 };
 
-static const char *const usages[] = {
-    "install <filename>",
-    NULL
-};
-
 int main(int argc, const char* argv[]){
 
     struct cmd_struct commands[]={
