@@ -51,6 +51,10 @@ int install_real(const char* filename){
                 }
             case S_IFREG:
                 {
+                    if (strstr(name, "/meta")){
+                        printf("metainfo\n");
+                        break;
+                    }
                     int fd;
                     if (access(name, F_OK)!=0){
                         fd=open(name, O_WRONLY | O_CREAT, archive_entry_mode(entry));
