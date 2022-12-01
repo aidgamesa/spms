@@ -2,15 +2,21 @@
 
 
 //C INCLUDES
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/stat.h>
+
+//DEPENDS
+#include <argparse.h>
+#include <archive.h>
+#include <archive_entry.h>
 
 //SPMS INCLUDES
 #include <install.h>
-
-//ADDITIONAL
-#include <argparse.h>
-
+#include <spms_error.h>
 
 static const char *const usages[] = {
     "install <filename>",
