@@ -35,7 +35,7 @@ int install_real(const char* filename){
     }
     struct archive_entry* entry;
     while (archive_read_next_header(a, &entry) == ARCHIVE_OK) {
-        const char* name = archive_entry_pathname_utf8(entry);
+        const char* name = strcat("/", (char*)archive_entry_pathname_utf8(entry));
         switch(archive_entry_filetype(entry)){
             case S_IFDIR:
                 {

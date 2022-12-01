@@ -27,7 +27,7 @@ int main(int argc, const char* argv[]){
     }
     struct cmd_struct *cmd;
 
-    for (int i = 0; i < sizeof(commands)/sizeof(struct cmd_struct); i++) {
+    for (long unsigned int i = 0; i < sizeof(commands)/sizeof(struct cmd_struct); i++) {
         if (!strcmp(commands[i].name, argv[0])) {
             cmd = &commands[i];
         }
