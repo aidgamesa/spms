@@ -35,20 +35,42 @@ int install_real(const char* filename){
     }
     struct archive_entry* entry;
     while (archive_read_next_header(a, &entry) == ARCHIVE_OK) {
-        const char* name = strcat("/", (char*)archive_entry_pathname_utf8(entry));
+        int name_len=sizeof(archive_entry_pathname_utf8(entry))+1;
+        char* name = malloc(name_len);
+        // = strcat((char*)"/", (char*)archive_entry_pathname_utf8(entry));
+        strcpy(name, "/");
+        strcat(name, (char*)archive_entry_pathname_utf8(entry));
         switch(archive_entry_filetype(entry)){
             case S_IFDIR:
                 {
-                    printf("DIR: %s\n", name);
+                    int r = mkdir(name, archive_entry_mode(entry));
+                    if (r!=0 && errno != EEXIST){
+                        exit_error("mkdir");
+                    }
                     break;
                 }
             case S_IFREG:
                 {
+                    int fd;
+                    if (access(name, F_OK)!=0){
+                        fd=open(name, O_WRONLY | O_CREAT, archive_entry_mode(entry));
+                    } else {
+                        fd=open(name, O_WRONLY);
+                        chmod(name, archive_entry_mode(entry));
+                    }
+                    if (fd<1){
+                        exit_error("open");
+                    }
+                    archive_read_data_into_fd(a, fd);
+                    close(fd);
                     printf("FILE: %s\n", name);
                     break;
                 }
             case S_IFLNK:
                 {
+                    if (symlink(archive_entry_symlink(entry),name)!=0 && errno != EEXIST){
+                        exit_error("symlink");
+                    }
                     printf("SYMLINK: %s -> %s\n", name, archive_entry_symlink(entry));
                     break;
                 }
