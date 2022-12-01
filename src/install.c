@@ -63,7 +63,6 @@ int install_real(const char* filename){
                     }
                     archive_read_data_into_fd(a, fd);
                     close(fd);
-                    printf("FILE: %s\n", name);
                     break;
                 }
             case S_IFLNK:
@@ -71,7 +70,6 @@ int install_real(const char* filename){
                     if (symlink(archive_entry_symlink(entry),name)!=0 && errno != EEXIST){
                         exit_error("symlink");
                     }
-                    printf("SYMLINK: %s -> %s\n", name, archive_entry_symlink(entry));
                     break;
                 }
         }
