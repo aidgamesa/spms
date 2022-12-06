@@ -52,7 +52,14 @@ int install_real(const char* filename){
             case S_IFREG:
                 {
                     if (strstr(name, "/meta")){
-                        printf("metainfo\n");
+                        struct metainfo meta;
+                        int fd = memfd_create("meta", O_RDWR);
+                        
+                        ftruncate(fd, sizeof(meta));
+                        archive_read_data_into_fd(a, fd);
+                        lseek(fd, 0, SEEK_SET);
+                        read(fd, (void*)&meta, sizeof(meta));
+                        printf("meta:\n\tname: %s\n\tversion: %d\n", meta.name, meta.version);
                         break;
                     }
                     int fd;

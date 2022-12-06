@@ -1,6 +1,8 @@
 #pragma once
 
 
+#define _GNU_SOURCE 
+
 //C INCLUDES
 #include <stdlib.h>
 #include <stdio.h>
@@ -9,6 +11,7 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <errno.h>
+#include <sys/mman.h>
 
 //DEPENDS
 #include <argparse.h>
