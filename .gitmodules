@@ -1,3 +1,6 @@
 [submodule "deps/argparse"]
 	path = deps/argparse
 	url = https://github.com/cofyc/argparse
+[submodule "deps/inih"]
+	path = deps/inih
+	url = https://github.com/OSSystems/inih

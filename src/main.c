@@ -11,6 +11,10 @@ int main(int argc, const char* argv[]){
         {
             "install",
             install
+        },
+        {
+            "mkmeta",
+            mkmeta
         }
     };
 
